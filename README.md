@@ -36,6 +36,13 @@ npm start
 
 ---
 
+## 📖 Documentação API
+A documentação completa e interativa da API foi gerada por Swagger e está disponível para consulta e testes.
+Após iniciar o serviro, acesse a documentação através da seguinte URL no seu navegador:
+➡️ [http://localhost:3000/docs](http://localhost:3000/docs)
+
+---
+
 ## Endpoints da API
 
 **Produtos:**
