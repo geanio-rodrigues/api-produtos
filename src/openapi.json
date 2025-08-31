@@ -1,0 +1,54 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API de Gestão para Supermercado",
+    "version": "1.0.4",
+    "description": "API para gerenciar Produtos, Fornecedores e Usuários."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/"
+    }
+  ],
+  
+  "components": {
+    "schemas": {
+        "Products": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "integer" },
+            "name": { "type": "string" },
+            "category": { "type": "string" },
+            "brand": { "type": "integer" },
+            "quantity": { "type": "integer" },
+            "purchase_price": { "type": "number", "format": "float" },
+            "supplier_id": { "type": "integer" },
+            "notes": { "type": "string" }
+          }
+        },
+        "Suppliers": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "integer" },
+            "name": { "type": "string" },
+            "email": { "type": "string" },
+            "phone": { "type": "integer" },
+            "notes": { "type": "string" }
+          }
+        },
+        "Users": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "integer" },
+            "fullname": { "type": "string" },
+            "username": { "type": "string" },
+            "password": { "type": "string" },
+            "email": { "type": "string" },
+            "phone": { "type": "integer" },
+            "role": { "type": "string" },
+            "notes": { "type": "string" }
+          }
+        }
+    }
+  }
+}
