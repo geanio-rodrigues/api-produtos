@@ -2,8 +2,6 @@ const dataUsers = require('../../config/data.users');
 const bcrypt = require('bcrypt');
 let idUser = 4; // para simular o autoincremento no id quando criar um Usuário novo.
 
-const JWT_SECRET = process.env.JWT_SECRET;
-
 const getAllUsers = () => {
     return dataUsers;
 }
