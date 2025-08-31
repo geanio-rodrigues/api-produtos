@@ -1,4 +1,4 @@
-const supplierServices = require('./supplier.service');
+const supplierServices = require('./supplier.services');
 
 // usando função async por manter boas práticas, para array não seria necessário, mas com banco de dados sim
 const getAllSuppliersController = async (req, res) => {
