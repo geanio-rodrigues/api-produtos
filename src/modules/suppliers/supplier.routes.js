@@ -3,10 +3,10 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/supplier', supplierControllers.getAllSuppliersController);
-router.get('/supplier/:id', supplierControllers.getSupplierByIdController);
-router.post('/supplier', supplierControllers.createSupplierController);
-router.put('/supplier/:id', supplierControllers.updateSupplierController);
-router.delete('/supplier/:id', supplierControllers.deleteSupplierController);
+router.get('/suppliers', supplierControllers.getAllSuppliersController);
+router.get('/suppliers/:id', supplierControllers.getSupplierByIdController);
+router.post('/suppliers', supplierControllers.createSupplierController);
+router.put('/suppliers/:id', supplierControllers.updateSupplierController);
+router.delete('/suppliers/:id', supplierControllers.deleteSupplierController);
 
 module.exports = router;
