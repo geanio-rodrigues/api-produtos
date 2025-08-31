@@ -1,5 +1,4 @@
 const dataProducts = require('../../config/data.products');
-const dataSuppliers = require('../../config/data.suppliers');
 let idProduct = 4; // para simular o autoincremento no id quando criar um produto novo.
 
 const getAllProducts = () => {
