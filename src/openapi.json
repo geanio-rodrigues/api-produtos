@@ -49,6 +49,222 @@
             "notes": { "type": "string" }
           }
         }
+    },
+    "endpoints": {
+      "/api/products": {
+        "get": {
+          "summary": "Lista todos os produtos",
+          "responses": {
+            "200": {
+              "description": "Uma lista de produtos.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": { "$ref": "#/components/schemas/Products" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Cria um novo produto",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Products" }
+              }
+            }
+          },
+          "responses": {
+            "201": { "description": "Produto criado com sucesso." }
+          }
+        }
+      },
+      "/api/products/{id}": {
+        "get": {
+          "summary": "Obtém um produto específico",
+          "parameters": [
+            { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          ],
+          "responses": {
+            "200": {
+              "description": "Detalhes do produto.",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Products" }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Atualiza um produto",
+          "parameters": [
+            { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Products" }
+              }
+            }
+          },
+          "responses": {
+            "200": { "description": "Produto atualizado com sucesso." }
+          }
+        },
+        "delete": {
+          "summary": "Remove um produto",
+          "parameters": [
+            { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          ],
+          "responses": {
+            "204": { "description": "Produto removido com sucesso." }
+          }
+        }
+      },
+      "/api/suppliers": {
+        "get": {
+          "summary": "Lista todos os fornecedores",
+          "responses": {
+            "200": {
+              "description": "Uma lista de fornecedores.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": { "$ref": "#/components/schemas/Suppliers" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Cria um novo fornecedor",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Suppliers" }
+              }
+            }
+          },
+          "responses": {
+            "201": { "description": "Fornecedor criado com sucesso." }
+          }
+        }
+      },
+      "/api/suppliers/{id}": {
+        "get": {
+          "summary": "Obtém um fornecedor específico",
+          "parameters": [
+            { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          ],
+          "responses": {
+            "200": {
+              "description": "Detalhes do fornecedor.",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Suppliers" }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Atualiza um fornecedor",
+          "parameters": [
+            { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Suppliers" }
+              }
+            }
+          },
+          "responses": {
+            "200": { "description": "Fornecedor atualizado com sucesso." }
+          }
+        },
+        "delete": {
+          "summary": "Remove um fornecedor",
+          "parameters": [
+            { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          ],
+          "responses": {
+            "204": { "description": "Fornecedor removido com sucesso." }
+          }
+        }
+      },
+      "/api/users": {
+        "get": {
+          "summary": "Lista todos os usuários",
+          "responses": {
+            "200": {
+              "description": "Uma lista de usuários.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": { "$ref": "#/components/schemas/Users" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/register": {
+        "post": {
+          "summary": "Cria um novo usuário (registro)",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Users" }
+              }
+            }
+          },
+          "responses": {
+            "201": { "description": "Usuário criado com sucesso." }
+          }
+        }
+      },
+      "/api/login": {
+        "post": {
+          "summary": "Loga um usuário na aplicação",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Login" }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Login bem-sucedido, retorna um token de acesso.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "token": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }  
     }
-  }
+  }    
 }
