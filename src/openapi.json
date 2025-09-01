@@ -2,269 +2,164 @@
   "openapi": "3.0.3",
   "info": {
     "title": "API de Gestão para Supermercado",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "API para gerenciar Produtos, Fornecedores e Usuários."
   },
-  "servers": [
+  "tags": [
     {
-      "url": "http://localhost:3000/api/"
+      "name": "Produtos",
+      "description": "Operações relacionadas aos produtos do supermercado"
+    },
+    {
+      "name": "Fornecedores",
+      "description": "Gerenciamento de fornecedores"
+    },
+    {
+      "name": "Usuários e Autenticação",
+      "description": "Operações para usuários, como registro e login"
     }
   ],
-  
+  "servers": [
+    {
+      "url": "http://localhost:3000/api"
+    }
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "tags": ["Produtos"],
+        "summary": "Lista todos os produtos",
+        "responses": {
+          "200": { "description": "Uma lista de produtos.", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Products" } } } } }
+        }
+      },
+      "post": {
+        "tags": ["Produtos"],
+        "summary": "Cria um novo produto",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Products" } } } },
+        "responses": { "201": { "description": "Produto criado com sucesso." } }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "tags": ["Produtos"],
+        "summary": "Obtém um produto específico",
+        "parameters": [ { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } } ],
+        "responses": { "200": { "description": "Detalhes do produto.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Products" } } } } }
+      },
+      "put": {
+        "tags": ["Produtos"],
+        "summary": "Atualiza um produto",
+        "parameters": [ { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } } ],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Products" } } } },
+        "responses": { "200": { "description": "Produto atualizado com sucesso." } }
+      },
+      "delete": {
+        "tags": ["Produtos"],
+        "summary": "Remove um produto",
+        "parameters": [ { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } } ],
+        "responses": { "204": { "description": "Produto removido com sucesso." } }
+      }
+    },
+    "/suppliers": {
+      "get": {
+        "tags": ["Fornecedores"],
+        "summary": "Lista todos os fornecedores",
+        "responses": { "200": { "description": "Uma lista de fornecedores.", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Suppliers" } } } } } }
+      },
+      "post": {
+        "tags": ["Fornecedores"],
+        "summary": "Cria um novo fornecedor",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Suppliers" } } } },
+        "responses": { "201": { "description": "Fornecedor criado com sucesso." } }
+      }
+    },
+    "/suppliers/{id}": {
+      "get": {
+        "tags": ["Fornecedores"],
+        "summary": "Obtém um fornecedor específico",
+        "parameters": [ { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } } ],
+        "responses": { "200": { "description": "Detalhes do fornecedor.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Suppliers" } } } } }
+      },
+      "put": {
+        "tags": ["Fornecedores"],
+        "summary": "Atualiza um fornecedor",
+        "parameters": [ { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } } ],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Suppliers" } } } },
+        "responses": { "200": { "description": "Fornecedor atualizado com sucesso." } }
+      },
+      "delete": {
+        "tags": ["Fornecedores"],
+        "summary": "Remove um fornecedor",
+        "parameters": [ { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } } ],
+        "responses": { "204": { "description": "Fornecedor removido com sucesso." } }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Usuários e Autenticação"],
+        "summary": "Lista todos os usuários",
+        "responses": { "200": { "description": "Uma lista de usuários.", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Users" } } } } } }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": ["Usuários e Autenticação"],
+        "summary": "Cria um novo usuário (registro)",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Users" } } } },
+        "responses": { "201": { "description": "Usuário criado com sucesso." } }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": ["Usuários e Autenticação"],
+        "summary": "Loga um usuário na aplicação",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Login" } } } },
+        "responses": { "200": { "description": "Login bem-sucedido, retorna um token de acesso.", "content": { "application/json": { "schema": { "type": "object", "properties": { "token": { "type": "string" } } } } } } }
+      }
+    }
+  },
   "components": {
     "schemas": {
-        "Products": {
-          "type": "object",
-          "properties": {
-            "id": { "type": "integer" },
-            "name": { "type": "string" },
-            "category": { "type": "string" },
-            "brand": { "type": "integer" },
-            "quantity": { "type": "integer" },
-            "purchase_price": { "type": "number", "format": "float" },
-            "supplier_id": { "type": "integer" },
-            "notes": { "type": "string" }
-          }
-        },
-        "Suppliers": {
-          "type": "object",
-          "properties": {
-            "id": { "type": "integer" },
-            "name": { "type": "string" },
-            "email": { "type": "string" },
-            "phone": { "type": "integer" },
-            "notes": { "type": "string" }
-          }
-        },
-        "Users": {
-          "type": "object",
-          "properties": {
-            "id": { "type": "integer" },
-            "fullname": { "type": "string" },
-            "username": { "type": "string" },
-            "password": { "type": "string" },
-            "email": { "type": "string" },
-            "phone": { "type": "integer" },
-            "role": { "type": "string" },
-            "notes": { "type": "string" }
-          }
-        }
-    },
-    "endpoints": {
-      "/api/products": {
-        "get": {
-          "summary": "Lista todos os produtos",
-          "responses": {
-            "200": {
-              "description": "Uma lista de produtos.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": { "$ref": "#/components/schemas/Products" }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "post": {
-          "summary": "Cria um novo produto",
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Products" }
-              }
-            }
-          },
-          "responses": {
-            "201": { "description": "Produto criado com sucesso." }
-          }
+      "Products": {
+        "type": "object",
+        "required": ["name", "category", "quantity", "purchase_price"],
+        "properties": {
+          "id": { "type": "integer", "description": "Identificador único do produto.", "example": 101 },
+          "name": { "type": "string", "description": "Nome do produto.", "example": "Leite Integral UHT" },
+          "category": { "type": "string", "description": "Categoria do produto.", "example": "Laticínios" },
+          "brand": { "type": "integer", "description": "ID da marca.", "example": 45 },
+          "quantity": { "type": "integer", "description": "Quantidade em estoque.", "example": 150 },
+          "purchase_price": { "type": "number", "format": "float", "description": "Preço de compra.", "example": 4.50 },
+          "supplier_id": { "type": "integer", "description": "ID do fornecedor.", "example": 22 },
+          "notes": { "type": "string", "description": "Observações adicionais.", "example": "Manter refrigerado." }
         }
       },
-      "/api/products/{id}": {
-        "get": {
-          "summary": "Obtém um produto específico",
-          "parameters": [
-            { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
-          ],
-          "responses": {
-            "200": {
-              "description": "Detalhes do produto.",
-              "content": {
-                "application/json": {
-                  "schema": { "$ref": "#/components/schemas/Products" }
-                }
-              }
-            }
-          }
-        },
-        "put": {
-          "summary": "Atualiza um produto",
-          "parameters": [
-            { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
-          ],
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Products" }
-              }
-            }
-          },
-          "responses": {
-            "200": { "description": "Produto atualizado com sucesso." }
-          }
-        },
-        "delete": {
-          "summary": "Remove um produto",
-          "parameters": [
-            { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
-          ],
-          "responses": {
-            "204": { "description": "Produto removido com sucesso." }
-          }
+      "Suppliers": {
+        "type": "object",
+        "required": ["name", "email"],
+        "properties": {
+          "id": { "type": "integer", "description": "ID único do fornecedor.", "example": 22 },
+          "name": { "type": "string", "description": "Nome do fornecedor.", "example": "Distribuidora Laticínios Sul" },
+          "email": { "type": "string", "description": "Email de contato.", "example": "contato@latsul.com" },
+          "phone": { "type": "integer", "description": "Telefone de contato.", "example": 51998765432 },
+          "notes": { "type": "string", "description": "Observações.", "example": "Entregas às segundas e quartas." }
         }
       },
-      "/api/suppliers": {
-        "get": {
-          "summary": "Lista todos os fornecedores",
-          "responses": {
-            "200": {
-              "description": "Uma lista de fornecedores.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": { "$ref": "#/components/schemas/Suppliers" }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "post": {
-          "summary": "Cria um novo fornecedor",
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Suppliers" }
-              }
-            }
-          },
-          "responses": {
-            "201": { "description": "Fornecedor criado com sucesso." }
-          }
+      "Users": {
+        "type": "object",
+        "required": ["fullname", "username", "password", "email"],
+        "properties": {
+          "id": { "type": "integer", "description": "ID único do usuário.", "example": 1 },
+          "fullname": { "type": "string", "description": "Nome completo do usuário.", "example": "João da Silva" },
+          "username": { "type": "string", "description": "Nome de usuário para login.", "example": "joao.silva" },
+          "password": { "type": "string", "description": "Senha do usuário (será criptografada).", "example": "senhaForte123" },
+          "email": { "type": "string", "description": "Email do usuário.", "example": "joao.silva@email.com" },
+          "phone": { "type": "integer", "description": "Telefone do usuário.", "example": 11987654321 },
+          "role": { "type": "string", "description": "Nível de permissão do usuário.", "example": "admin" },
+          "notes": { "type": "string", "description": "Observações.", "example": "Usuário administrador do sistema." }
         }
-      },
-      "/api/suppliers/{id}": {
-        "get": {
-          "summary": "Obtém um fornecedor específico",
-          "parameters": [
-            { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
-          ],
-          "responses": {
-            "200": {
-              "description": "Detalhes do fornecedor.",
-              "content": {
-                "application/json": {
-                  "schema": { "$ref": "#/components/schemas/Suppliers" }
-                }
-              }
-            }
-          }
-        },
-        "put": {
-          "summary": "Atualiza um fornecedor",
-          "parameters": [
-            { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
-          ],
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Suppliers" }
-              }
-            }
-          },
-          "responses": {
-            "200": { "description": "Fornecedor atualizado com sucesso." }
-          }
-        },
-        "delete": {
-          "summary": "Remove um fornecedor",
-          "parameters": [
-            { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
-          ],
-          "responses": {
-            "204": { "description": "Fornecedor removido com sucesso." }
-          }
-        }
-      },
-      "/api/users": {
-        "get": {
-          "summary": "Lista todos os usuários",
-          "responses": {
-            "200": {
-              "description": "Uma lista de usuários.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": { "$ref": "#/components/schemas/Users" }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/api/register": {
-        "post": {
-          "summary": "Cria um novo usuário (registro)",
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Users" }
-              }
-            }
-          },
-          "responses": {
-            "201": { "description": "Usuário criado com sucesso." }
-          }
-        }
-      },
-      "/api/login": {
-        "post": {
-          "summary": "Loga um usuário na aplicação",
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Login" }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "Login bem-sucedido, retorna um token de acesso.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "token": { "type": "string" }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }  
+      }
     }
-  }    
+  }
 }
